@@ -1,0 +1,32 @@
+.header-container{
+    background: #ffffff;
+    height: 70px;
+    text-align: center;
+    max-width: 1280px;
+   margin: 0 auto;
+}
+.header-container .row{
+    margin:0;
+    height: 70px;
+}
+.header-container ul{
+    float: right;
+}
+.header-container ul li{
+    display: inline-block;
+}
+.header-container ul li span{
+    padding: 0 4px;
+}
+.header-container .language-text{
+    cursor: pointer;
+}
+.header-container span{
+    display: inline-block;
+    height: 70px;
+    vertical-align: middle;
+    line-height: 70px;
+}
+.header-container .language-select-wrapper{
+    font-size: 16px;
+}

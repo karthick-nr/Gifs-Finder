@@ -1,0 +1,35 @@
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+.loader-wrapper .loader-inner-wrapper{
+  padding: 2% 0%;
+}
+
+.loader-wrapper .loader-inner-wrapper .loader-icon{
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  border: dashed 2px #8a9cd6;
+  animation-name: spin;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  margin: 0 auto;
+}
+
+.loader-wrapper .loader-inner-wrapper .loader-text{
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  color: #829ed5;  
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media only screen and (max-width:767px){
+  .loader-wrapper .loader-inner-wrapper .loader-text{
+  font-size: 20px;
+  }
+}
