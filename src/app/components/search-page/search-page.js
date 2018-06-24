@@ -12,7 +12,7 @@ import Loader from './../loader/loader';
 import SingleViewPage from './../single-view-page/single-view-page';
 
 /**
- * WorkOrders component class is created to display the Work orders based on the Work Orders response generated.
+ * SearchPage component class is created to display the gifs response generated.
  */
 class SearchPage extends Component {
     /**
@@ -37,7 +37,7 @@ class SearchPage extends Component {
         window.scrollTo(0, 0);
         this.props.actions.loadAllTrendingGifs(this.props.locale, this.state.searchLimit);
         window.onscroll = () => {
-            if (this.state.searchLimit < 48 && this.props.gifs && this.props.gifs.length >= this.state.searchLimit && (window.innerHeight + window.pageYOffset) >= document.body.scrollHeight) {
+            if (!this.props.routeParams.gifURL && this.state.searchLimit < 48 && this.props.gifs && this.props.gifs.length >= this.state.searchLimit && (window.innerHeight + window.pageYOffset) >= document.body.scrollHeight) {
                 this.setState({ searchLimit: this.state.searchLimit + 24 }, () => {
                     if (this.state.searchText == "")
                         this.props.actions.loadAllTrendingGifs(this.props.locale, this.state.searchLimit, true);
@@ -82,6 +82,13 @@ class SearchPage extends Component {
             });
         }
     }
+
+
+    /**
+     * This method handles the click event on the particular gif.
+     * @param {e} -  value - event object from the component.
+     * @return null.
+     */
     onImageClicked(e) {
         let target = e.currentTarget ? e.currentTarget : e.target;
         e.preventDefault();
@@ -89,12 +96,11 @@ class SearchPage extends Component {
         return false;
     }
     /**
-     * This method handles the Work Orders component rendering with the markup defined within the return statement.
+     * This method handles the SearchPage component rendering with the markup defined within the return statement.
      * @return {object} return the React component content to React DOM.
      */
     render() {
         let { intl } = this.props;
-        let top = 0;
         return (
             <div className="search-page-wrapper">
                 <div className="search-page-container">
@@ -120,10 +126,8 @@ class SearchPage extends Component {
                                     <div className="gif-list-wrapper">
                                         <div className="column-wrapper">
                                             {this.props.gifs.map((a, i) => {
-                                                let t = top;
-                                                top += 200;
                                                 return (
-                                                    <figure key={"gifs_figure_" + i} className="gif-list-item" style={{ top: t + "px" }}>
+                                                    <figure key={"gifs_figure_" + i} className="gif-list-item">
                                                         <a onClick={this.onImageClicked} data-href={"/gifs/" + a.itemurl.replace("https://tenor.com/view/", "")}>
                                                             <div size="tinygif" className="gif-wrapper">
                                                                 <img className="gif-image" src={a.media[0].tinygif.url}
@@ -141,7 +145,7 @@ class SearchPage extends Component {
                                         </div>
                                     </div>
                                 }
-                                {this.props.gifsLoading &&
+                                {(this.props.gifsLoading || this.props.gifsLazyLoading) &&
                                     <div className="searchpage-loader-wrapper">
                                         <Loader id="wo-loader" langKey={(this.props.gifsLoading ? "loadingText" : "loadingMoreText")} />
                                     </div>
@@ -149,8 +153,12 @@ class SearchPage extends Component {
                             </div>
                         }
                         {this.props.routeParams.gifURL && this.props.gifs && this.props.gifs.length > 0 &&
-                            <div className={"search-result-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12"}>
-                                <SingleViewPage gifURL={this.props.routeParams.gifURL} selectedGif={this.props.gifs.filter((a) => { return a.id = this.props.routeParams.gifURL.split("-")[this.props.routeParams.gifURL.split("-").length - 1]; })[0]} />
+                            <div className={"search-single-page-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12"}>
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <span> {intl.formatMessage({ "id": "searchGifText" }, { searchGifText: this.props.routeParams.gifURL.split("-").splice(0, this.props.routeParams.gifURL.split("-").length - 2).join(" ").charAt(0).toUpperCase() + this.props.routeParams.gifURL.split("-").splice(0, this.props.routeParams.gifURL.split("-").length - 2).join(" ").substr(1).toLowerCase() })}</span>
+                                </div>
+                                <SingleViewPage locale={this.props.locale}
+                                    gifURL={this.props.routeParams.gifURL} selectedGif={this.props.gifs.filter((a) => { return a.id = this.props.routeParams.gifURL.split("-")[this.props.routeParams.gifURL.split("-").length - 1]; })[0]} />
                             </div>
                         }
                     </div>

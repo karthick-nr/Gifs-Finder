@@ -23,6 +23,11 @@ class TextBox extends Component {
 		this.onFocus = this.onFocus.bind(this);
 		this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
 	}
+
+    /**
+     * This method handles the component props and state update before the initial component mounting on the React DOM.
+     * @return {object} returns updated props and state of the component before render method.
+     */
 	componentDidMount() {
 		document.addEventListener("click", this.onDocumentClickHandler);
 	}
@@ -55,8 +60,13 @@ class TextBox extends Component {
      * @return null.
      */
 	onDocumentClickHandler(e) {
-        let target = e.currentTarget ? e.currentTarget : e.target;
-		if (target && target.classList && target.classList.value.indexOf("text-dropdown-container-list") == -1) {
+		let target = e.currentTarget ? e.currentTarget : e.target;
+		if ((target && target.classList && target.classList.value.indexOf("text-dropdown-container-list") != -1) || target.activeElement.classList.value.indexOf("text-input") != -1) {
+			this.setState({
+				openSuggestions: true
+			});
+		}
+		else {
 			this.setState({
 				openSuggestions: false
 			});
@@ -77,11 +87,22 @@ class TextBox extends Component {
 				this.props.onChange(this.state.value);
 		});
 	}
+
+	/**
+ 	* This method handles the onFocus functionality of the Textbox component and set the component value in state and return to the user specified callback function.
+  	* @return calback function.
+ 	*/
 	onFocus() {
 		this.setState({
 			openSuggestions: true
 		});
 	}
+
+	/**
+ 	* This method handles the selection complete functionality of the suggestions list.
+ 	* @param {object} - e - selected value from the suggestion list.
+  	* @return calback function.
+ 	*/
 	selctionComplete(e) {
 		this.setState({
 			value: e,
@@ -97,7 +118,7 @@ class TextBox extends Component {
 	 */
 	render() {
 		return (
-			<div id={this.props.id} className={"text-input-wrapper"}>
+			<div className={"text-input-wrapper"}>
 				<div className={"text-input-container"}>
 					<input
 						type="text" className={"text-input"}
@@ -106,12 +127,13 @@ class TextBox extends Component {
 						onChange={this.onChange}
 						placeholder={this.props.placeHolder}
 						onFocus={this.onFocus}
-						onBlur={this.onBlur} />
+						onBlur={this.onBlur}
+						readOnly={this.props.readOnly} />
 					{this.props.enableSearchIcon &&
 						<span className="search-icon" />
 					}
 				</div>
-				{this.state.dataSource.length > 0 && this.state.openSuggestions &&
+				{!this.props.enableCopyToClipBoard && this.state.dataSource.length > 0 && this.state.openSuggestions &&
 					<div className={"text-dropdown-container"}>
 						<ul>
 							{this.state.dataSource.map((a, i) => {
@@ -141,7 +163,9 @@ TextBox.propTypes = {
 	value: PropTypes.any,
 	enableSearchIcon: PropTypes.bool,
 	langKey: PropTypes.string,
-	dataSource: PropTypes.array
+	dataSource: PropTypes.array,
+	enableCopyToClipBoard: PropTypes.bool,
+	readOnly: PropTypes.bool
 };
 
 export default TextBox;

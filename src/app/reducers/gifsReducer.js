@@ -6,7 +6,7 @@ export default function gifsReducer(state = [], action) {
             return Object.assign({}, state, {
                 gifs: action.gifs,
                 gifsLoading: false,
-                woLazyLoading: false
+                gifsLazyLoading: false
             });
         case types.LOAD_GIFS_INPROGRESS:
             return Object.assign({}, state, {

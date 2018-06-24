@@ -1,6 +1,6 @@
 class Utils {
     /**
-     * UUID method which follows RFC4122v4.
+     * anonid method which follows RFC4122v4.
      */
     static anonid() {
         // Private array of chars to use

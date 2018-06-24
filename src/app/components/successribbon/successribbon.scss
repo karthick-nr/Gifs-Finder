@@ -1,0 +1,48 @@
+.save-ribbon-wrapper {
+    background-color: #668dcb;
+    width: auto;
+    position: fixed;
+    height: 50px;
+    z-index: 99999;
+    top: -70px;
+    padding: 10px 20px;
+	right: 0;
+	color: #ffffff;
+}
+
+.show-success-ribbon {
+    top: 0;
+    transition: top 0.1s linear;
+}
+
+.hide-success-ribbon {
+    top: -70px;
+    transition: top 0.1s linear;
+}
+
+.success-ribbon-close {
+    float: right;
+	cursor: pointer;
+	padding-left: 20px;
+    font-size: 1em;
+}
+
+@media only screen and (max-width:1024px) {
+    .save-ribbon-wrapper {
+        width: auto;
+    }
+    .success-ribbon-close {
+        margin-left: 8px;
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .save-ribbon-wrapper {
+        width: auto;
+    }
+    .success-ribbon-close {
+        margin-left: 8px;
+        font-size: 1em;
+    }
+}
