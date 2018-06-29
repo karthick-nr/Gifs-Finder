@@ -22,7 +22,7 @@ class Header extends Component {
 
     /**
      * This method handles the component props when props values are newly updated.
-     * @param  {object} - nextProps - next set of props for the Checkbox component.
+     * @param  {object} - nextProps - next set of props for the Header component.
      * @return {object} returns updated props of the component before render method.
      */
     componentWillReceiveProps(nextProps) {

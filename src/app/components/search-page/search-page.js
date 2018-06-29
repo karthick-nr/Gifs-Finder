@@ -68,6 +68,7 @@ class SearchPage extends Component {
     /**
      * This method handles the search textbox typing completed functionality.
      * @param {object} -  value - event object from the component.
+     * @param {suggestionSelcted} -  value - event object from the component when a particular suggestion is selected.
      * @return null.
      */
     completeTextSearch(value, suggestionSelcted) {

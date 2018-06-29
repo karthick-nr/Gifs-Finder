@@ -14,7 +14,7 @@ export function loadGifsLazyLoadingInProgress() {
 }
 /**
  * This method is used to load gifs
- * @param  {array} - workOrders - response from workOrders api.
+ * @param  {array} - gifs - response from gifs api.
  */
 export function loadGifsSuccess(gifs) {
     return { type: types.LOAD_GIFS_SUCCESS, gifs };
@@ -44,7 +44,7 @@ export function loadAllTrendingGifs(locale, limit, lazyLoad) {
 /**
  * This method is used to load all the gifs
  * @param  {string} - queryString - search query string to indicate the api call to load the gifs.
- * @param  {int} - limit - no of work orders to be loaded in the api call.
+ * @param  {int} - limit - no of gifs to be loaded in the api call.
  * @param  {boolean} - lazyLoad - indicate whether the loading is kind of on demand lazy loading.
  */
 export function loadAllGifs(queryString, locale, limit, lazyLoad) {
